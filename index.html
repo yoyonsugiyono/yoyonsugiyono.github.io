@@ -3,47 +3,277 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portal Aplikasi Sekolah</title>
+    <title>Portal Aplikasi Sekolah - Yoyon Sugiyono</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome untuk Ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
-        body { font-family: sans-serif; background-color: #f0f2f5; text-align: center; padding: 20px; }
-        .container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h1 { color: #2c3e50; }
-        p { color: #666; margin-bottom: 30px; }
-        .btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            margin: 10px 0;
-            background-color: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            transition: background 0.3s;
+        :root {
+            /* Palette Warna Modern */
+            --primary-gradient-start: #4e54c8;
+            --primary-gradient-end: #8f94fb;
+            --text-color: #333;
+            --text-muted: #666;
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --white: #ffffff;
+            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.15);
+            --shadow-hover: 0 15px 35px rgba(78, 84, 200, 0.25);
         }
-        .btn:hover { background-color: #0056b3; }
-        .footer { margin-top: 30px; font-size: 12px; color: #999; }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color);
+            padding: 20px;
+            /* Background pattern halus (opsional) */
+            background-image: 
+                linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end)),
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Animasi Masuk */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 420px; /* Lebar optimal untuk tampilan mobile */
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 24px;
+            box-shadow: var(--shadow-soft);
+            text-align: center;
+            backdrop-filter: blur(12px); /* Efek Kaca */
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .profile-wrapper {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            transition: transform 0.4s ease;
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+        /* Badge status (Opsional: misal 'Online' atau 'Guru') */
+        .status-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            width: 24px;
+            height: 24px;
+            background: #2ecc71;
+            border: 3px solid var(--white);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            margin: 0 0 5px;
+            color: #2c3e50;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin: 0 0 15px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .author-tag {
+            display: inline-block;
+            background: rgba(78, 84, 200, 0.1);
+            color: var(--primary-gradient-start);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 35px;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Styling Tombol Utama */
+        .btn {
+            display: flex;
+            align-items: center;
+            padding: 18px 24px;
+            background: var(--white);
+            color: #4a4a4a;
+            text-decoration: none;
+            border-radius: 16px;
+            font-size: 16px;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            border: 1px solid rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+            text-align: left;
+        }
+
+        .btn i {
+            font-size: 22px;
+            margin-right: 18px;
+            width: 30px;
+            text-align: center;
+            color: var(--primary-gradient-start);
+            transition: transform 0.3s ease;
+        }
+
+        .btn span {
+            flex-grow: 1;
+        }
+
+        /* Efek panah kecil di kanan */
+        .btn::after {
+            content: '\f054'; /* FontAwesome chevron-right */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 12px;
+            color: #ccc;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        /* Hover State */
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(143, 148, 251, 0.5);
+            color: var(--primary-gradient-start);
+        }
+
+        .btn:hover i {
+            transform: scale(1.15);
+        }
+
+        .btn:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+            color: var(--primary-gradient-start);
+        }
+
+        /* Tombol WhatsApp Spesial */
+        .btn-wa {
+            background: linear-gradient(to right, #25D366, #128C7E);
+            color: white;
+            border: none;
+            justify-content: center;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .btn-wa i {
+            color: white;
+        }
+
+        .btn-wa:hover {
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
+            transform: translateY(-4px);
+            color: white;
+        }
+        
+        .btn-wa::after {
+            display: none; /* Hilangkan panah untuk tombol WA */
+        }
+
+        .footer {
+            margin-top: 45px;
+            font-size: 12px;
+            color: #999;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            padding-top: 25px;
+            line-height: 1.6;
+        }
+
+        .footer strong {
+            color: var(--primary-gradient-start);
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://github.com/yoyonsugiyono.png" width="100" style="border-radius:50%; margin-bottom:10px;">
+        <!-- Bagian Profil -->
+        <div class="profile-wrapper">
+            <img src="https://github.com/yoyonsugiyono.png" alt="Yoyon Sugiyono" class="profile-img">
+            <div class="status-badge" title="Online"></div>
+        </div>
         
         <h1>Portal Edukasi</h1>
-        <p>Kumpulan Aplikasi & Media Pembelajaran<br>Karya: Yoyon Sugiyono, S.Pd., M.Pd., Gr.</p>
+        <p class="subtitle">Media Pembelajaran Interaktif & Aplikasi Sekolah</p>
+        <div class="author-tag">By: Yoyon Sugiyono, S.Pd., M.Pd., Gr.</div>
 
-        <a href="https://yoyonsugiyono.github.io/jadwal-penggunaan-pakaian-dinas-kab-sampang" class="btn"> Anti Salah Kostum (Askos)</a>
-        
-        <a href="https://yoyonsugiyono.github.io/karapan-sapi-math" class="btn"> Karapan Sapi Math</a>
-        
-        <a href="https://yoyonsugiyono.github.io/balapkarungmatika" class="btn"> Balap Karung Matika</a>
+        <!-- Daftar Tautan -->
+        <div class="links-container">
+            
+            <a href="https://yoyonsugiyono.github.io/jadwal-penggunaan-pakaian-dinas-kab-sampang" class="btn" target="_blank">
+                <i class="fas fa-tshirt"></i> 
+                <span>Anti Salah Kostum (Askos)</span>
+            </a>
+            
+            <a href="https://yoyonsugiyono.github.io/karapan-sapi-math" class="btn" target="_blank">
+                <i class="fas fa-calculator"></i> 
+                <span>Karapan Sapi Math</span>
+            </a>
+            
+            <a href="https://yoyonsugiyono.github.io/balapkarungmatika" class="btn" target="_blank">
+                <i class="fas fa-gamepad"></i> 
+                <span>Balap Karung Matika</span>
+            </a>
 
-        <a href="https://wa.me/6282331769605" class="btn" style="background-color: #25D366;">📞 Hubungi via WhatsApp</a>
+            <!-- Tombol Kontak -->
+            <a href="https://wa.me/6282331769605" class="btn btn-wa" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>Hubungi via WhatsApp</span>
+            </a>
 
+        </div>
+
+        <!-- Footer -->
         <div class="footer">
-            &copy; 2026 UPTD SDN Margantoko 2
+            &copy; 2026 <strong>UPTD SDN Margantoko 2</strong><br>
+            Dibuat dengan semangat untuk pendidikan Indonesia 🇮🇩
         </div>
     </div>
 
