@@ -5,282 +5,441 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal Aplikasi Sekolah - Yoyon Sugiyono</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <!-- Font Awesome untuk Ikon -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            /* Palette Warna Modern */
-            --primary-gradient-start: #4e54c8;
-            --primary-gradient-end: #8f94fb;
-            --text-color: #333;
-            --text-muted: #666;
-            --card-bg: rgba(255, 255, 255, 0.85);
+            --primary: #4e54c8;
+            --secondary: #8f94fb;
+            --accent: #ff9f43;
+            --bg-body: #f0f2f5;
+            --text-main: #2d3436;
+            --text-muted: #636e72;
             --white: #ffffff;
-            --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.15);
-            --shadow-hover: 0 15px 35px rgba(78, 84, 200, 0.25);
+            --glass: rgba(255, 255, 255, 0.9);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --radius: 20px;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end));
-            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            background-attachment: fixed;
             margin: 0;
             display: flex;
-            align-items: center;
             justify-content: center;
-            color: var(--text-color);
-            padding: 20px;
-            /* Background pattern halus (opsional) */
-            background-image: 
-                linear-gradient(135deg, var(--primary-gradient-start), var(--primary-gradient-end)),
-                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            min-height: 100vh;
+            color: var(--text-main);
         }
 
-        /* Animasi Masuk */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
-        }
-
-        .container {
+        .phone-container {
             width: 100%;
-            max-width: 420px; /* Lebar optimal untuk tampilan mobile */
-            background: var(--card-bg);
-            padding: 40px 30px;
-            border-radius: 24px;
-            box-shadow: var(--shadow-soft);
+            max-width: 480px;
+            background: var(--bg-body);
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 50px rgba(0,0,0,0.2);
+        }
+
+        /* Area Header */
+        header {
+            background: var(--white);
+            padding: 30px 20px 20px;
             text-align: center;
-            backdrop-filter: blur(12px); /* Efek Kaca */
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            box-shadow: var(--shadow);
+            z-index: 10;
         }
 
         .profile-wrapper {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 15px;
             position: relative;
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 20px;
         }
 
         .profile-img {
             width: 100%;
             height: 100%;
             border-radius: 50%;
+            border: 3px solid var(--primary);
+            padding: 3px;
             object-fit: cover;
-            border: 4px solid var(--white);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-            transition: transform 0.4s ease;
+            background: #eee;
         }
 
-        .profile-img:hover {
-            transform: scale(1.05) rotate(3deg);
-        }
-
-        /* Badge status (Opsional: misal 'Online' atau 'Guru') */
-        .status-badge {
+        .status-dot {
+            width: 15px;
+            height: 15px;
+            background: #2ecc71;
+            border: 2px solid var(--white);
+            border-radius: 50%;
             position: absolute;
             bottom: 5px;
             right: 5px;
-            width: 24px;
-            height: 24px;
-            background: #2ecc71;
-            border: 3px solid var(--white);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
         }
 
-        h1 {
-            font-size: 26px;
-            font-weight: 700;
-            margin: 0 0 5px;
-            color: #2c3e50;
-            letter-spacing: -0.5px;
+        header h1 { font-size: 20px; margin: 0; color: var(--primary); font-weight: 700; }
+        header p { font-size: 13px; margin: 5px 0 0; color: var(--text-muted); }
+
+        /* Navigasi Tab */
+        .nav-tabs {
+            display: flex;
+            justify-content: space-around;
+            background: var(--white);
+            padding: 10px;
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
         }
 
-        .subtitle {
-            font-size: 15px;
-            color: var(--text-muted);
-            margin: 0 0 15px;
-            font-weight: 400;
-            line-height: 1.5;
-        }
-
-        .author-tag {
-            display: inline-block;
-            background: rgba(78, 84, 200, 0.1);
-            color: var(--primary-gradient-start);
-            padding: 6px 16px;
-            border-radius: 50px;
+        .tab-item {
+            padding: 10px 15px;
             font-size: 13px;
             font-weight: 600;
-            margin-bottom: 35px;
-        }
-
-        .links-container {
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: 10px;
+            transition: 0.3s;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            align-items: center;
+            gap: 5px;
+            flex: 1;
         }
 
-        /* Styling Tombol Utama */
-        .btn {
+        .tab-item i { font-size: 18px; }
+
+        .tab-item.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Area Konten */
+        .content-section {
+            padding: 0 20px 100px;
+            flex-grow: 1;
+            overflow-y: auto;
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .content-section.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 25px 0 15px 5px;
             display: flex;
             align-items: center;
-            padding: 18px 24px;
+            gap: 10px;
+        }
+
+        /* Styling Kartu */
+        .app-card {
             background: var(--white);
-            color: #4a4a4a;
+            border-radius: var(--radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
             text-decoration: none;
-            border-radius: 16px;
-            font-size: 16px;
-            font-weight: 600;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            border: 1px solid rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
-            text-align: left;
+            color: inherit;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            transition: 0.3s;
+            border: 1px solid transparent;
         }
 
-        .btn i {
-            font-size: 22px;
-            margin-right: 18px;
-            width: 30px;
-            text-align: center;
-            color: var(--primary-gradient-start);
-            transition: transform 0.3s ease;
+        .app-card:hover {
+            transform: scale(1.02);
+            border-color: var(--secondary);
+            box-shadow: 0 8px 25px rgba(78, 84, 200, 0.1);
         }
 
-        .btn span {
-            flex-grow: 1;
-        }
-
-        /* Efek panah kecil di kanan */
-        .btn::after {
-            content: '\f054'; /* FontAwesome chevron-right */
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            font-size: 12px;
-            color: #ccc;
-            opacity: 0;
-            transform: translateX(-10px);
-            transition: all 0.3s ease;
-        }
-
-        /* Hover State */
-        .btn:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-hover);
-            border-color: rgba(143, 148, 251, 0.5);
-            color: var(--primary-gradient-start);
-        }
-
-        .btn:hover i {
-            transform: scale(1.15);
-        }
-
-        .btn:hover::after {
-            opacity: 1;
-            transform: translateX(0);
-            color: var(--primary-gradient-start);
-        }
-
-        /* Tombol WhatsApp Spesial */
-        .btn-wa {
-            background: linear-gradient(to right, #25D366, #128C7E);
-            color: white;
-            border: none;
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(78, 84, 200, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
             justify-content: center;
-            margin-top: 10px;
+            margin-right: 15px;
+            font-size: 20px;
+            color: var(--primary);
+        }
+
+        .app-info h3 { font-size: 15px; margin: 0; font-weight: 600; }
+        .app-info p { font-size: 12px; margin: 3px 0 0; color: var(--text-muted); }
+
+        .btn-go {
+            margin-left: auto;
+            color: #ccc;
+            font-size: 14px;
+        }
+
+        /* Profil Section Detail */
+        .bio-card {
+            background: var(--white);
+            padding: 20px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
             text-align: center;
         }
-        
-        .btn-wa i {
-            color: white;
+
+        .achievement-tag {
+            display: inline-block;
+            background: #fff8e1;
+            color: #ff8f00;
+            padding: 5px 12px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 700;
+            margin-top: 10px;
+            border: 1px solid #ffe082;
         }
 
-        .btn-wa:hover {
-            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-            transform: translateY(-4px);
-            color: white;
-        }
-        
-        .btn-wa::after {
-            display: none; /* Hilangkan panah untuk tombol WA */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
-        .footer {
-            margin-top: 45px;
+        .contact-item {
+            background: var(--white);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-main);
             font-size: 12px;
-            color: #999;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            padding-top: 25px;
-            line-height: 1.6;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: 0.2s;
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
-        .footer strong {
-            color: var(--primary-gradient-start);
+        .contact-item:active { transform: scale(0.95); }
+
+        .contact-item i {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+
+        .contact-item.wa { background: #25D366; color: white; }
+        .contact-item.wa i { color: white; }
+        
+        .contact-item.wa-channel { background: #f0f2f5; border: 1px solid #25D366; color: #128C7E; }
+        .contact-item.wa-channel i { color: #25D366; }
+
+        .contact-item.pijar { background: #1a1a1a; color: white; }
+        .contact-item.pijar i { color: var(--accent); }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 11px;
+            color: var(--text-muted);
+            background: #f8f9fa;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-top: 20px;
+            color: #1976d2;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Bagian Profil -->
-        <div class="profile-wrapper">
-            <img src="https://github.com/yoyonsugiyono.png" alt="Yoyon Sugiyono" class="profile-img">
-            <div class="status-badge" title="Online"></div>
+    <div class="phone-container">
+        <!-- Header -->
+        <header>
+            <div class="profile-wrapper">
+                <img src="https://github.com/yoyonsugiyono.png" alt="Yoyon Sugiyono" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Yoyon+Sugiyono&background=4e54c8&color=fff'">
+                <div class="status-dot"></div>
+            </div>
+            <h1>Portal Edukasi Digital</h1>
+            <p>Yoyon Sugiyono, S.Pd., M.Pd., Gr.</p>
+            <p>Guru Pejuang Digital Komunitas Belajar.id Kab. Sampang</p>
+        </header>
+
+        <!-- Navigasi Tab -->
+        <nav class="nav-tabs">
+            <div id="tab-apps" class="tab-item active" onclick="openTab('apps')">
+                <i class="fas fa-th-large"></i>
+                <span>Aplikasi</span>
+            </div>
+            <div id="tab-guides" class="tab-item" onclick="openTab('guides')">
+                <i class="fas fa-book-open"></i>
+                <span>Panduan</span>
+            </div>
+            <div id="tab-profile" class="tab-item" onclick="openTab('profile')">
+                <i class="fas fa-user-tie"></i>
+                <span>Profil</span>
+            </div>
+        </nav>
+
+        <!-- Konten Section: Apps -->
+        <div id="section-apps" class="content-section active">
+            <div class="section-title"><i class="fas fa-gamepad"></i> Media & Game Edukasi</div>
+            
+            <a href="https://yoyonsugiyono.github.io/tkaceria" class="app-card" target="_blank">
+                <div class="app-icon" style="background: rgba(255, 159, 67, 0.1); color: var(--accent);">
+                    <i class="fas fa-child"></i>
+                </div>
+                <div class="app-info">
+                    <h3>TKA Ceria</h3>
+                    <p>Media belajar TKA untuk Murid SD/MI/SMP/MTs.</p>
+                </div>
+                <i class="fas fa-chevron-right btn-go"></i>
+            </a>
+
+            <a href="https://yoyonsugiyono.github.io/karapan-sapi-math" class="app-card" target="_blank">
+                <div class="app-icon"><i class="fas fa-calculator"></i></div>
+                <div class="app-info">
+                    <h3>Karapan Sapi Math</h3>
+                    <p>Kompetisi numerasi budaya lokal.</p>
+                </div>
+                <i class="fas fa-chevron-right btn-go"></i>
+            </a>
+
+            <a href="https://yoyonsugiyono.github.io/balapkarungmatika" class="app-card" target="_blank">
+                <div class="app-icon"><i class="fas fa-bolt"></i></div>
+                <div class="app-info">
+                    <h3>Balap Karung Matika</h3>
+                    <p>Latihan ketangkasan logika matematika.</p>
+                </div>
+                <i class="fas fa-chevron-right btn-go"></i>
+            </a>
+
+            <div class="section-title"><i class="fas fa-tools"></i> Alat Bantu Guru</div>
+
+            <a href="https://yoyonsugiyono.github.io/jadwal-penggunaan-pakaian-dinas-kab-sampang" class="app-card" target="_blank">
+                <div class="app-icon"><i class="fas fa-tshirt"></i></div>
+                <div class="app-info">
+                    <h3>Askos (Anti Salah Kostum)</h3>
+                    <p>Cek jadwal seragam dinas harian.</p>
+                </div>
+                <i class="fas fa-chevron-right btn-go"></i>
+            </a>
+
+            <a href="https://yoyonsugiyono.github.io/genptanding" class="app-card" target="_blank">
+                <div class="app-icon"><i class="fas fa-sitemap"></i></div>
+                <div class="app-info">
+                    <h3>Genbaper (Generator Bracket)</h3>
+                    <p>Buat bagan lomba otomatis.</p>
+                </div>
+                <i class="fas fa-chevron-right btn-go"></i>
+            </a>
         </div>
-        
-        <h1>Portal Edukasi</h1>
-        <p class="subtitle">Media Pembelajaran Interaktif & Aplikasi Sekolah</p>
-        <div class="author-tag">By: Yoyon Sugiyono, S.Pd., M.Pd., Gr.</div>
 
-        <!-- Daftar Tautan -->
-        <div class="links-container">
+        <!-- Konten Section: Guides -->
+        <div id="section-guides" class="content-section">
+            <div class="section-title"><i class="fas fa-graduation-cap"></i> Resource Belajar</div>
             
-            <a href="https://yoyonsugiyono.github.io/jadwal-penggunaan-pakaian-dinas-kab-sampang" class="btn" target="_blank">
-                <i class="fas fa-tshirt"></i> 
-                <span>Anti Salah Kostum (Askos)</span>
-            </a>
-            
-            <a href="https://yoyonsugiyono.github.io/karapan-sapi-math" class="btn" target="_blank">
-                <i class="fas fa-calculator"></i> 
-                <span>Karapan Sapi Math</span>
-            </a>
-            
-            <a href="https://yoyonsugiyono.github.io/balapkarungmatika" class="btn" target="_blank">
-                <i class="fas fa-gamepad"></i> 
-                <span>Balap Karung Matika</span>
-            </a>
+            <div class="app-card">
+                <div class="app-icon"><i class="fas fa-desktop"></i></div>
+                <div class="app-info">
+                    <h3>Panduan Optimalisasi PID</h3>
+                    <p>Tips menggunakan Papan Interaktif Digital.</p>
+                </div>
+            </div>
 
-             <a href="https://yoyonsugiyono.github.io/genptanding" class="btn" target="_blank">
-                <i class="fas fa-gamepad"></i> 
-                <span>Generator Bracket Pertandingan (Genbaper)</span>
-            </a>
-            
-            <!-- Tombol Kontak -->
-            <a href="https://wa.me/6282331769605" class="btn btn-wa" target="_blank">
-                <i class="fab fa-whatsapp"></i>
-                <span>Hubungi via WhatsApp</span>
-            </a>
+            <div class="info-box">
+                <i class="fas fa-info-circle"></i> Materi panduan sedang diperbarui secara berkala untuk mendukung implementasi Kurikulum Satuan Pendidikan.
+            </div>
+        </div>
 
+        <!-- Konten Section: Profile -->
+        <div id="section-profile" class="content-section">
+            <div class="bio-card">
+                <h3 style="margin:0">Yoyon Sugiyono, S.Pd., M.Pd., Gr.</h3>
+                <p style="font-size: 12px; color: var(--text-muted);">Guru Pejuang Digital (GPD) Komunitas Belajar.id Kab. Sampang</p>
+                <p style="font-size: 12px; margin-top: 15px; line-height: 1.6;">Berdedikasi mengembangkan media pembelajaran interaktif berbasis kearifan lokal untuk memajukan pendidikan di Kabupaten Sampang.</p>
+            </div>
+
+            <div class="section-title"><i class="fas fa-paper-plane"></i> Kontak & Media</div>
+            <div class="contact-grid">
+                <a href="https://wa.me/6282331769605" class="contact-item wa" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+                <a href="https://whatsapp.com/channel/0029Vb6NDKmISTkBEcfZz81C" class="contact-item wa-channel" target="_blank">
+                    <i class="fas fa-bullhorn"></i>
+                    Saluran WA
+                </a>
+                <a href="https://www.pijarteknologi.com" class="contact-item pijar" target="_blank">
+                    <i class="fas fa-globe"></i>
+                    Pijar Teknologi
+                </a>
+                <a href="https://github.com/yoyonsugiyono" class="contact-item" target="_blank">
+                    <i class="fab fa-github"></i>
+                    GitHub
+                </a>
+                <a href="mailto:yoyonsugiyono@gmail.com" class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    Email
+                </a>
+            </div>
         </div>
 
         <!-- Footer -->
-        <div class="footer">
-            &copy; 2026 <strong>UPTD SDN Margantoko 2</strong><br>
-            Dibuat dengan semangat untuk pendidikan Indonesia 🇮🇩
-        </div>
+        <footer>
+            &copy; 2026 <strong>Guru Pejuang Digital Komunitas Belajar.id</strong><br>
+            Kabupaten Sampang, Madura, Jawa Timur
+        </footer>
     </div>
 
+    <script>
+        function openTab(tabName) {
+            // Sembunyikan semua section
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(s => s.classList.remove('active'));
+
+            // Nonaktifkan semua tab
+            const tabs = document.querySelectorAll('.tab-item');
+            tabs.forEach(t => t.classList.remove('active'));
+
+            // Tampilkan section terpilih
+            const targetSection = document.getElementById('section-' + tabName);
+            const targetTab = document.getElementById('tab-' + tabName);
+            
+            if(targetSection) targetSection.classList.add('active');
+            if(targetTab) targetTab.classList.add('active');
+
+            window.scrollTo(0, 0);
+        }
+
+        // Pastikan halaman siap
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("Portal Siap!");
+        });
+    </script>
 </body>
 </html>
