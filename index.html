@@ -18,11 +18,10 @@
         <header>
             <div class="profile-wrapper">
                 <img src="https://github.com/yoyonsugiyono.png" alt="Yoyon Sugiyono" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=Yoyon+Sugiyono&background=4e54c8&color=fff'">
-                <div class="status-dot"></div>
             </div>
             <h1>Portal Edukasi Digital</h1>
             <p>Yoyon Sugiyono, S.Pd., M.Pd., Gr.</p>
-            <p>Guru Pejuang Digital Komunitas Belajar.id Kab. Sampang</p>
+            <p style="font-size: 11px; opacity: 0.8; margin-top:2px;">Guru Pejuang Digital Komunitas Belajar.id Kab. Sampang</p>
         </header>
 
         <!-- Navigasi Tab -->
@@ -30,6 +29,11 @@
             <div id="tab-apps" class="tab-item active" onclick="openTab('apps')">
                 <i class="fas fa-th-large"></i>
                 <span>Aplikasi</span>
+            </div>
+            <div id="tab-literasi" class="tab-item" onclick="openTab('literasi')" style="position: relative;">
+                <i class="fas fa-book-reader"></i>
+                <span>Literasi</span>
+                <span class="new-badge">NEW</span>
             </div>
             <div id="tab-guides" class="tab-item" onclick="openTab('guides')">
                 <i class="fas fa-book-open"></i>
@@ -104,7 +108,30 @@
             </a>
         </div>
 
-        <!-- Konten Section: Guides -->
+        <!-- Section: Literasi -->
+        <div id="section-literasi" class="content-section">
+            <div class="section-title"><i class="fas fa-book-open"></i> Pojok Baca Digital</div>
+            <p style="font-size: 0.8rem; color: #666; margin-bottom: 20px;">
+                Tingkatkan minat baca dengan koleksi cerita digital interaktif dan inspiratif.
+            </p>
+
+            <a href="https://gemini.google.com/share/8b28c91cd29e" class="app-card ramadhan-card" target="_blank">
+                <div class="app-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="app-info">
+                    <h3>Storybook: Cerita Ramadan</h3>
+                    <p>Kumpulan cerita islami harian penuh hikmah (AI Series).</p>
+                </div>
+                <i class="fas fa-chevron-right btn-go"></i>
+            </a>
+
+            <div class="info-box" style="margin-top: 20px; background-color: #e8f5e9; color: #2e7d32;">
+                <i class="fas fa-lightbulb"></i> <strong>Literasi Digital:</strong> Buku cerita ini dibuat berbantuan AI untuk menemani aktivitas siswa selama bulan suci.
+            </div>
+        </div>
+
+        <!-- Section: Guides -->
         <div id="section-guides" class="content-section">
             <div class="section-title"><i class="fas fa-graduation-cap"></i> Resource Belajar</div>
             
@@ -114,6 +141,7 @@
                     <h3>Panduan Optimalisasi PID</h3>
                     <p>Tips menggunakan Papan Interaktif Digital.</p>
                 </div>
+                <i class="fas fa-download btn-go"></i>
             </div>
 
             <div class="info-box">
@@ -121,7 +149,7 @@
             </div>
         </div>
 
-        <!-- Konten Section: Profile -->
+        <!-- Section: Profile -->
         <div id="section-profile" class="content-section">
             <div class="bio-card">
                 <h3 style="margin:0">Yoyon Sugiyono, S.Pd., M.Pd., Gr.</h3>
