@@ -1,23 +1,29 @@
+/**
+ * Fungsi untuk berpindah tab pada dashboard
+ * @param {string} tabName - Nama tab yang ingin diaktifkan
+ */
 function openTab(tabName) {
-    // Sembunyikan semua section
-    const sections = document.querySelectorAll('.content-section');
-    sections.forEach(s => s.classList.remove('active'));
+    // Ambil semua elemen section konten
+    const contents = document.getElementsByClassName('content-section');
+    for (let i = 0; i < contents.length; i++) {
+        contents[i].classList.remove('active');
+    }
 
-    // Nonaktifkan semua tab
-    const tabs = document.querySelectorAll('.tab-item');
-    tabs.forEach(t => t.classList.remove('active'));
+    // Ambil semua elemen navigasi tab
+    const tabs = document.getElementsByClassName('tab-item');
+    for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+    }
 
-    // Tampilkan section terpilih
-    const targetSection = document.getElementById('section-' + tabName);
-    const targetTab = document.getElementById('tab-' + tabName);
-    
-    if(targetSection) targetSection.classList.add('active');
-    if(targetTab) targetTab.classList.add('active');
+    // Tampilkan section yang dipilih
+    const selectedSection = document.getElementById('section-' + tabName);
+    if (selectedSection) {
+        selectedSection.classList.add('active');
+    }
 
-    window.scrollTo(0, 0);
+    // Aktifkan visual tab yang dipilih
+    const selectedTab = document.getElementById('tab-' + tabName);
+    if (selectedTab) {
+        selectedTab.classList.add('active');
+    }
 }
-
-// Pastikan halaman siap
-document.addEventListener('DOMContentLoaded', function() {
-    console.log("Portal Siap!");
-});
